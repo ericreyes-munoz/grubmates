@@ -948,6 +948,7 @@
           type="text"
           class="field-input"
           id="f-name"
+          name="name"
           placeholder="First name's fine"
           autocomplete="given-name"
           required
@@ -957,7 +958,7 @@
       <div class="field">
         <label class="field-label" for="f-city">What city are you in?</label>
         <div class="select-wrap">
-          <select class="field-select" id="f-city" required>
+          <select class="field-select" id="f-city" name="city" required>
             <option value="" disabled selected>Pick your city</option>
             <option value="nyc">New York</option>
             <option value="phl">Philadelphia</option>
@@ -1008,10 +1009,18 @@
             <span class="night-pill">Williamsburg</span>
           </label>
           <label class="night-label">
-            <input type="checkbox" name="neighborhood" value="other">
+            <input type="checkbox" name="neighborhood" value="other" id="neighborhood-other-check">
             <span class="night-pill">Other</span>
           </label>
         </div>
+        <input
+          type="text"
+          class="field-input"
+          id="f-neighborhood-other"
+          name="neighborhood_custom"
+          placeholder="Which neighborhood?"
+          style="display:none; margin-top: 0.5rem;"
+        >
       </div>
 
       <div class="field">
@@ -1042,6 +1051,7 @@
           type="email"
           class="field-input"
           id="f-email"
+          name="email"
           placeholder="you@email.com"
           autocomplete="email"
           required
@@ -1070,19 +1080,33 @@
 
 
 <script>
-  // Form submission
-  const form = document.getElementById('join-form');
-  const success = document.getElementById('join-success');
+  // ── "Other" neighborhood toggle ───────────────────────
+  const otherCheck = document.getElementById('neighborhood-other-check');
+  const otherInput = document.getElementById('f-neighborhood-other');
+  otherCheck.addEventListener('change', function () {
+    otherInput.style.display = this.checked ? 'block' : 'none';
+    if (!this.checked) otherInput.value = '';
+  });
 
-  form.addEventListener('submit', function (e) {
+  // ── Form submission via Formspree ─────────────────────
+  // SETUP: go to formspree.io, create a free account, create a new form,
+  // then replace YOUR_FORM_ID below with the ID they give you (e.g. "xabcde12").
+  const FORMSPREE_ID = 'YOUR_FORM_ID';
+
+  const form    = document.getElementById('join-form');
+  const success = document.getElementById('join-success');
+  const submitBtn = form.querySelector('.btn-join');
+
+  form.addEventListener('submit', async function (e) {
     e.preventDefault();
+
     const name   = document.getElementById('f-name').value.trim();
     const city   = document.getElementById('f-city').value;
     const email  = document.getElementById('f-email').value.trim();
     const nights = [...document.querySelectorAll('input[name="nights"]:checked')];
 
+    // Validate required fields
     let valid = true;
-
     [
       { el: document.getElementById('f-name'),  ok: name.length > 0 },
       { el: document.getElementById('f-city'),  ok: city !== '' },
@@ -1105,11 +1129,30 @@
 
     if (!valid) return;
 
-    form.style.display = 'none';
-    success.style.display = 'block';
+    submitBtn.textContent = 'Sending…';
+    submitBtn.disabled = true;
+
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+      } else {
+        submitBtn.textContent = 'Something went wrong — try again';
+        submitBtn.disabled = false;
+      }
+    } catch {
+      submitBtn.textContent = 'Something went wrong — try again';
+      submitBtn.disabled = false;
+    }
   });
 
-  // Scroll reveal
+  // ── Scroll reveal ─────────────────────────────────────
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver(
     entries => entries.forEach(entry => {
