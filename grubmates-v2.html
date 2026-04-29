@@ -18,6 +18,7 @@
     :root {
       --cream:       #FAF3E0;
       --cream-dark:  #E5D9BC;
+      --cream-mid:   #F0E8CC;
       --forest:      #2D5A3D;
       --forest-mid:  #3D7A52;
       --forest-pale: #C8E0D0;
@@ -280,6 +281,132 @@
     }
     .how-note strong { color: #fff; font-weight: 600; }
 
+    /* ─── SOUND FAMILIAR ─────────────────────────────── */
+    .who {
+      padding: 6rem 2rem;
+      background: var(--cream);
+    }
+    .who-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .who-headline {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.028em;
+      margin-bottom: 1.25rem;
+    }
+    .who-headline em { font-style: italic; color: var(--forest); }
+    .who-copy {
+      font-size: 1.02rem;
+      line-height: 1.75;
+      color: var(--olive);
+    }
+    .who-copy p + p { margin-top: 0.85rem; }
+    .who-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .who-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: 14px;
+      padding: 1rem 1.15rem;
+      transition: border-color 0.18s, transform 0.18s;
+    }
+    .who-item:hover {
+      border-color: var(--forest-pale);
+      transform: translateX(4px);
+    }
+    .who-emoji {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      width: 2rem;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .who-text strong {
+      display: block;
+      font-weight: 600;
+      font-size: 0.92rem;
+      margin-bottom: 0.18rem;
+      color: var(--charcoal);
+    }
+    .who-text span {
+      font-size: 0.84rem;
+      color: var(--olive-light);
+      line-height: 1.45;
+    }
+
+    /* ─── WHAT YOU GET ────────────────────────────────── */
+    .perks {
+      background: var(--cream-mid);
+      border-top: 1px solid var(--cream-dark);
+      border-bottom: 1px solid var(--cream-dark);
+      padding: 6rem 2rem;
+      text-align: center;
+    }
+    .perks-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--forest);
+      margin-bottom: 0.75rem;
+    }
+    .perks-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+      color: var(--charcoal);
+      margin-bottom: 0;
+    }
+    .perks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1.25rem;
+      max-width: 1040px;
+      margin: 3rem auto 0;
+    }
+    .perk {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: 18px;
+      padding: 1.6rem;
+      text-align: left;
+      transition: border-color 0.18s, transform 0.18s;
+    }
+    .perk:hover {
+      border-color: var(--forest-pale);
+      transform: translateY(-3px);
+    }
+    .perk-icon { font-size: 1.4rem; margin-bottom: 0.8rem; display: block; }
+    .perk-name {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--charcoal);
+      margin-bottom: 0.4rem;
+    }
+    .perk-desc {
+      font-size: 0.87rem;
+      color: var(--olive);
+      line-height: 1.55;
+    }
+
     /* ─── JOIN FORM ───────────────────────────────────── */
     .join {
       background: var(--white);
@@ -522,10 +649,15 @@
     }
 
     /* ─── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 760px) {
+      .who-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
     @media (max-width: 600px) {
       nav { padding: 1.1rem 1.25rem; }
       .hero { padding: 4.5rem 1.25rem 3rem; }
       .how { padding: 6rem 1.25rem 5rem; }
+      .who { padding: 4.5rem 1.25rem; }
+      .perks { padding: 4.5rem 1.25rem; }
       .join { padding: 5.5rem 1.25rem; }
     }
   </style>
@@ -551,8 +683,9 @@
   </h1>
 
   <p class="hero-sub">
-    Communal dinner at local restaurants, every weeknight.
-    Fixed menu, guaranteed seat. Show up and meet whoever's there.
+    Grubmates is coming to NYC. Communal dinner at local restaurants,
+    every weeknight — fixed menu, guaranteed seat, real people.
+    We open when the table is full. Get on the list.
   </p>
 
   <a href="#join" class="hero-cta">Save your seat →</a>
@@ -704,6 +837,100 @@
   <p>Spend your DoorDash money on a real meal with real people.</p>
 </div>
 
+<!-- ── SOUND FAMILIAR ───────────────────────────────── -->
+<section class="who">
+  <div class="who-inner">
+    <div class="reveal">
+      <p class="eyebrow" style="color: var(--forest); opacity: 1;">Sound familiar?</p>
+      <h2 class="who-headline">
+        Tired of eating<br><em>alone</em> again?
+      </h2>
+      <div class="who-copy">
+        <p>
+          You moved to the city. You have a full life, a busy job, a group chat
+          that's all memes and no plans. But dinner is still a sad grain bowl
+          at your desk or DoorDash on the couch, for the fourth time this week.
+        </p>
+        <p>
+          You're not anti-social. You just don't want to spend 45 minutes
+          coordinating a dinner that half the group cancels on.
+          You just want to eat with other humans like a normal person.
+        </p>
+      </div>
+    </div>
+
+    <ul class="who-list reveal" style="transition-delay: 0.12s;">
+      <li class="who-item">
+        <div class="who-emoji">🏙️</div>
+        <div class="who-text">
+          <strong>New to the city</strong>
+          <span>You know maybe four people here and they're all mysteriously busy</span>
+        </div>
+      </li>
+      <li class="who-item">
+        <div class="who-emoji">💼</div>
+        <div class="who-text">
+          <strong>The busy professional</strong>
+          <span>Calendar's full. Evenings are somehow empty. That's a problem.</span>
+        </div>
+      </li>
+      <li class="who-item">
+        <div class="who-emoji">🥗</div>
+        <div class="who-text">
+          <strong>The desk lunch survivor</strong>
+          <span>Three grain bowls this week. You deserve to sit at an actual table.</span>
+        </div>
+      </li>
+      <li class="who-item">
+        <div class="who-emoji">📱</div>
+        <div class="who-text">
+          <strong>The group chat ghost</strong>
+          <span>"we should all get dinner!" → no replies → sad DoorDash → repeat forever</span>
+        </div>
+      </li>
+      <li class="who-item">
+        <div class="who-emoji">🎓</div>
+        <div class="who-text">
+          <strong>Misses college dining</strong>
+          <span>Walking in, seeing someone you know, grabbing a tray. You want that back.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- ── WHAT YOU GET ──────────────────────────────────── -->
+<section class="perks">
+  <div style="max-width: 1040px; margin: 0 auto;">
+    <p class="perks-eyebrow">What you get</p>
+    <h2 class="perks-title">Everything handled.<br>Nothing to think about.</h2>
+    <div class="perks-grid">
+      <div class="perk reveal">
+        <span class="perk-icon">✅</span>
+        <h3 class="perk-name">Guaranteed seat</h3>
+        <p class="perk-desc">Your spot is reserved every night you sign up. Walk straight in — no wait, no hassle.</p>
+      </div>
+      <div class="perk reveal" style="transition-delay: 0.08s;">
+        <span class="perk-icon">🔄</span>
+        <h3 class="perk-name">Rotating restaurants</h3>
+        <p class="perk-desc">A different local spot each week. We partner with great places on their slow nights — you discover the city, they fill their tables.</p>
+      </div>
+      <div class="perk reveal" style="transition-delay: 0.16s;">
+        <span class="perk-icon">🥦</span>
+        <h3 class="perk-name">Fixed healthy-ish menu</h3>
+        <p class="perk-desc">No decision fatigue. Solid food — real meals, not sad salads. Dietary options covered.</p>
+      </div>
+      <div class="perk reveal" style="transition-delay: 0.24s;">
+        <span class="perk-icon">👥</span>
+        <h3 class="perk-name">Real community</h3>
+        <p class="perk-desc">Not a networking event. Not awkward. Just people in the same city who also wanted to not eat alone on a Tuesday.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <!-- ── JOIN FORM ─────────────────────────────────────── -->
 <section class="join" id="join">
   <div class="join-blob-1"></div>
@@ -757,6 +984,54 @@
           <label class="night-label">
             <input type="checkbox" name="nights" value="thu">
             <span class="night-pill">Thu</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">What neighborhood are you usually in for dinner?</span>
+        <div class="nights-group" role="group" aria-label="Select neighborhood">
+          <label class="night-label">
+            <input type="checkbox" name="neighborhood" value="midtown">
+            <span class="night-pill">Midtown</span>
+          </label>
+          <label class="night-label">
+            <input type="checkbox" name="neighborhood" value="fidi">
+            <span class="night-pill">FiDi</span>
+          </label>
+          <label class="night-label">
+            <input type="checkbox" name="neighborhood" value="flatiron">
+            <span class="night-pill">Flatiron</span>
+          </label>
+          <label class="night-label">
+            <input type="checkbox" name="neighborhood" value="williamsburg">
+            <span class="night-pill">Williamsburg</span>
+          </label>
+          <label class="night-label">
+            <input type="checkbox" name="neighborhood" value="other">
+            <span class="night-pill">Other</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">What time do you usually surface for dinner?</span>
+        <div class="nights-group" role="group" aria-label="Select dinner time">
+          <label class="night-label">
+            <input type="checkbox" name="dinnertime" value="6-7pm">
+            <span class="night-pill">6–7pm</span>
+          </label>
+          <label class="night-label">
+            <input type="checkbox" name="dinnertime" value="7-8pm">
+            <span class="night-pill">7–8pm</span>
+          </label>
+          <label class="night-label">
+            <input type="checkbox" name="dinnertime" value="8-9pm">
+            <span class="night-pill">8–9pm</span>
+          </label>
+          <label class="night-label">
+            <input type="checkbox" name="dinnertime" value="9pm+">
+            <span class="night-pill">9pm+</span>
           </label>
         </div>
       </div>
